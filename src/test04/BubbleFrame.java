@@ -71,9 +71,21 @@ public class BubbleFrame extends JFrame {
                     case KeyEvent.VK_UP:
                         player.up();
                         break;
+                    case KeyEvent.VK_SPACE:
+                        fireBubble();
+                        break;
                 }
             }
         });
+    }
+
+    // todo 임시 버블 클래스 생성
+    private void fireBubble() {
+        Bubble bubble = new Bubble(player);
+        backgroundMap.add(bubble);
+        // 동적으로 컴포턴트가 그려기지 때문에 버그 발생 가능
+        backgroundMap.revalidate(); // 레이아웃 재 계산
+        backgroundMap.repaint(); // 화면 다시 그리기
     }
 
     public static void main(String[] args) {
