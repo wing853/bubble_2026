@@ -1,6 +1,12 @@
 package test05;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
+
+@Getter
+@Setter
 
 public class Player extends JLabel implements Moveable {
 
@@ -38,83 +44,12 @@ public class Player extends JLabel implements Moveable {
     private PlayerWay playerWay = PlayerWay.RIGHT;
 
     // getter
-    @Override
-    public int getY() {
-        return y;
-    }
 
-    @Override
-    public int getX() {
-        return x;
-    }
 
-    public boolean isLeft() {
-        return left;
-    }
-
-    public boolean isRight() {
-        return right;
-    }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public boolean isDown() {
-        return down;
-    }
-
-    public boolean isRightWallCrash() {
-        return RightWallCrash;
-    }
-
-    public boolean isLeftWallCrash() {
-        return leftWallCrash;
-    }
-
-    public PlayerWay getPlayerWay() {
-        return playerWay;
-    }
 
     //setter
     // BubbleFrame의 Key 이벤트에서 호출 할 수 있도록 setter 설정
 
-
-    public void setLeft(boolean left) {
-        this.left = left;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
-    }
-
-    public void setUp(boolean up) {
-        this.up = up;
-    }
-
-    public void setDown(boolean down) {
-        this.down = down;
-    }
-
-    public void setLeftWallCrash(boolean leftWallCrash) {
-        this.leftWallCrash = leftWallCrash;
-    }
-
-    public void setRightWallCrash(boolean rightWallCrash) {
-        RightWallCrash = rightWallCrash;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setPlayerWay(PlayerWay playerWay) {
-        this.playerWay = playerWay;
-    }
 
     public Player() {
         initData();
@@ -189,7 +124,7 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void up() {
-        if(up){
+        if (up) {
             return;
         }
         up = true;
@@ -197,9 +132,9 @@ public class Player extends JLabel implements Moveable {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0; i < JUMP_HEIGHT/JUMP_SPEED; i++){
+                for (int i = 0; i < JUMP_HEIGHT / JUMP_SPEED; i++) {
                     y -= JUMP_SPEED;
-                    setLocation(x,y);
+                    setLocation(x, y);
                     try {
                         Thread.sleep(5); // 5ms간격 (낙하보다 느리게 설정 낙하: 3ms)
                     } catch (InterruptedException e) {
@@ -213,22 +148,29 @@ public class Player extends JLabel implements Moveable {
     }
 
     @Override
+    /**
+     * 낙하 변경(중력)
+     * for -> while(down)으로 변경
+     * while(true) --> (down)
+     *      BackgroundPlayerService가 바닥 감시
+     *      setDown(false) 호출 --> down 상태 값을 false로 변경한다면 while(down)이 종료 -> 낙하 종료
+     */
     public void down() {
         down = true;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0; i < JUMP_HEIGHT/JUMP_SPEED; i++){
+                while (down) {
                     y += JUMP_SPEED;
-                    setLocation(x,y);
+                    setLocation(x , y);
+
                     try {
-                        Thread.sleep(1); // 5ms간격 (낙하보다 느리게 설정 낙하: 3ms)
+                        Thread.sleep(3);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                down = false;
             }
         }).start();
     }

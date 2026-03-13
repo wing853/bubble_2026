@@ -8,13 +8,14 @@ public class BubbleFrame extends JFrame {
 
     private JLabel backgroundMap;
     private Player player;
+    private Bubble bubble;
 
     public BubbleFrame() {
         initData();
         setInitLayout();
         addEventListener();
         // 충돌 감지 백그라운드 서비스 시작
-        new Thread(new BackgroundPlayerService(player)).start();
+        new Thread(new BackgroundPlayerService(player,bubble)).start();
     }
 
     private void initData() {
@@ -26,6 +27,7 @@ public class BubbleFrame extends JFrame {
         setContentPane(backgroundMap);
 
         player = new Player();
+        bubble = new Bubble(player);
     }
 
     private void setInitLayout() {
@@ -47,6 +49,9 @@ public class BubbleFrame extends JFrame {
                         break;
                     case KeyEvent.VK_RIGHT:
                         player.setRight(false);
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        fireBubble();
                         break;
                 }
 
@@ -71,9 +76,7 @@ public class BubbleFrame extends JFrame {
                     case KeyEvent.VK_UP:
                         player.up();
                         break;
-                    case KeyEvent.VK_SPACE:
-                        fireBubble();
-                        break;
+
                 }
             }
         });
@@ -81,7 +84,7 @@ public class BubbleFrame extends JFrame {
 
     // todo 임시 버블 클래스 생성
     private void fireBubble() {
-        Bubble bubble = new Bubble(player);
+        bubble = new Bubble(player);
         backgroundMap.add(bubble);
         // 동적으로 컴포턴트가 그려기지 때문에 버그 발생 가능
         backgroundMap.revalidate(); // 레이아웃 재 계산
