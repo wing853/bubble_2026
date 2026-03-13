@@ -12,7 +12,7 @@ public class Player2 extends JLabel implements Moveable2 {
 
     private final int SPEED = 4;
     private final int JUMP_SPEED = 2;
-    private final int JUMP_HEIGHT = 130;
+    private final int JUMP_HEIGHT = 80;
 
     private boolean left = false;
     private boolean right = false;
@@ -148,7 +148,7 @@ public class Player2 extends JLabel implements Moveable2 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < JUMP_HEIGHT / JUMP_SPEED; i++) {
+                for (int i = 0; i < JUMP_HEIGHT; i++) {
                     y -= JUMP_SPEED;
                     setLocation(x, y);
                     try {
@@ -170,11 +170,11 @@ public class Player2 extends JLabel implements Moveable2 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < JUMP_HEIGHT / JUMP_SPEED; i++) {
+                for (int i = 0; i < JUMP_HEIGHT && down; i++) {
                     y += JUMP_SPEED;
                     setLocation(x, y);
                     try {
-                        Thread.sleep(2);
+                        Thread.sleep(3);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

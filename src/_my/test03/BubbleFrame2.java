@@ -30,6 +30,7 @@ public class BubbleFrame2 extends JFrame {
 
     private void setInitLayout() {
         backgroundMap.add(player2);
+        setResizable(false);
         setVisible(true);
     }
 
