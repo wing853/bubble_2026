@@ -83,6 +83,8 @@ public class BubbleFrame extends JFrame {
     // todo 임시 버블 클래스 생성
     private void fireBubble() {
         Bubble bubble = new Bubble(player);
+        BackgroundBubbleService backgroundBubbleService = new BackgroundBubbleService(bubble);
+        new Thread(backgroundBubbleService).start();
         backgroundMap.add(bubble);
         // 동적으로 컴포턴트가 그려기지 때문에 버그 발생 가능
         backgroundMap.revalidate(); // 레이아웃 재 계산

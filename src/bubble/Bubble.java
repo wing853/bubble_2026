@@ -25,6 +25,8 @@ public class Bubble extends JLabel implements Moveable {
     private boolean rightMoving = false;
     private boolean upMoving = false;
 
+    private boolean crush = false;
+
     public Bubble(Player player) {
         this.player = player;
         initData();
@@ -63,6 +65,9 @@ public class Bubble extends JLabel implements Moveable {
     public void left() {
         leftMoving = true;
         for (int i = 0; i < HORIZONTAL_DISTANCE; i++) {
+            if(isCrush()){
+                break;
+            }
             x--;
             setLocation(x, y);
             try {
@@ -79,6 +84,9 @@ public class Bubble extends JLabel implements Moveable {
     public void right() {
         rightMoving = true;
         for (int i = 0; i < HORIZONTAL_DISTANCE; i++) {
+            if(isCrush()){
+                break;
+            }
             x++;
             setLocation(x, y);
             try {

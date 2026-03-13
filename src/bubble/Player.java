@@ -44,14 +44,6 @@ public class Player extends JLabel implements Moveable {
      */
     private PlayerWay playerWay = PlayerWay.RIGHT;
 
-    // getter
-
-
-
-    //setter
-    // BubbleFrame의 Key 이벤트에서 호출 할 수 있도록 setter 설정
-
-
     public Player() {
         initData();
         setInitLayout();

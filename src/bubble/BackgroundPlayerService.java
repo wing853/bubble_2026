@@ -43,6 +43,7 @@ public class BackgroundPlayerService implements Runnable {
             int bottomLeft = image.getRGB(player.getX() + 20, player.getY() + 55);
             int bottomRight = image.getRGB(player.getX() + 50, player.getY() + 55);
 
+
 //            System.out.println("bottomLeft: " + bottomLeft);
 //            System.out.println("bottomRight: " + bottomRight);
 
@@ -78,6 +79,7 @@ public class BackgroundPlayerService implements Runnable {
             } else {
                 player.setRightWallCrash(false);
             }
+
 
             try {
                 Thread.sleep(10);
