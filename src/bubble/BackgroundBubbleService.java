@@ -9,6 +9,7 @@ import java.io.IOException;
 public class BackgroundBubbleService implements Runnable {
     private BufferedImage image;
     private Bubble bubble;
+    private final int RED_CORD = -65536;
     private int x;
     private int y;
 
@@ -29,7 +30,7 @@ public class BackgroundBubbleService implements Runnable {
             if (bubble.isLeftMoving()) {
                 x = bubble.getX();
                 y = bubble.getY();
-                if (image.getRGB(x, y) == -65536) {
+                if (image.getRGB(x, y) == RED_CORD) {
                     bubble.setCrush(true);
                 }
             }
@@ -37,7 +38,7 @@ public class BackgroundBubbleService implements Runnable {
             if (bubble.isRightMoving()) {
                 x = bubble.getX() + 60;
                 y = bubble.getY();
-                if (image.getRGB(x, y) == -65536) {
+                if (image.getRGB(x, y) == RED_CORD) {
                     bubble.setCrush(true);
                 }
             }
